@@ -6,3 +6,11 @@ modules:
  - name: uidev
    type: html5
    path: uidev
+   requires:
+    - name: live5uaa
+
+resources:
+ - name: live5uaa
+   type: com.sap.xs.uaa
+   parameters:
+      path: ./xs-security.json
