@@ -1,41 +1,46 @@
 ID: live5
 _schema-version: '2.0'
 version: 0.0.1
-
 modules:
- - name: uidev
-   type: html5
-   path: uidev
-   requires:
-    - name: live5uaa
-
-
- - name: db
-   type: hdb
-   path: db
-   requires:
-    - name: hdi_db
-
-
- - name: node
-   type: nodejs
-   path: node
-   provides:
-    - name: node_api
-      properties:
-         url: ${default-url}
+  - name: uidev
+    type: html5
+    path: uidev
+    requires:
+      - name: live5uaa
+      - name: node_api
+        group: destinations
+        properties:
+          name: node_be
+          url: ~{service_url}
+          forwardAuthToken: true
+  
+  - name: db
+    type: hdb
+    path: db
+    requires:
+      - name: hdi_db
+  
+  - name: node
+    type: nodejs
+    path: node
+    requires:
+      - name: hdi_db
+      - name: live5uaa
+    provides:
+      - name: node_api
+        properties:
+          service_url: '${default-url}'
 
 resources:
- - name: live5uaa
-   type: com.sap.xs.uaa
-   parameters:
+  - name: live5uaa
+    type: com.sap.xs.uaa
+    parameters:
       path: ./xs-security.json
-
- - name: hdi_db
-   parameters:
+  
+  - name: hdi_db
+    parameters:
       config:
-         schema: LIVE5
-   properties:
-      hdi-container-name: ${service-name}
-   type: com.sap.xs.hdi-container
-
+        schema: LIVE5
+    properties:
+      hdi-container-name: '${service-name}'
+    type: com.sap.xs.hdi-container

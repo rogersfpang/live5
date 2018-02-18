@@ -12,10 +12,9 @@ var client = new twitter({
 	consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
 	access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
 	access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
-/*	request_options: {
+	request_options: {
 		proxy: process.env.TWITTER_PROXY
 	}
-*/
 });
 
 module.exports = function() {
